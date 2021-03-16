@@ -1,0 +1,281 @@
+<!--
+Copyright (c) 2020 Cisco and/or its affiliates.
+
+This software is licensed to you under the terms of the Cisco Sample
+Code License, Version 1.1 (the "License"). You may obtain a copy of the
+License at
+
+               https://developer.cisco.com/docs/licenses
+
+All use of the material herein must be in accordance with the terms of
+the License. All rights not expressly granted by the License are
+reserved. Unless required by applicable law or agreed to separately in
+writing, software distributed under the License is distributed on an "AS
+IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
+or implied.
+--!>
+
+{% extends "widebase.html" %}
+
+{% block content %}
+    {{ super() }}
+    <div class="container-fluid">
+        <div class="section">
+            <div class="flex-center-vertical">
+                <h1>Select a Policy</h1>
+            </div>
+        <div class="section">
+            <div class="row base-margin-bottom">
+                <div class="col-3">
+                    <div class="panel panel--bordered">
+                        <center><h5 id="test">Available Web Policies</h5></center>
+                        {% for policy in webPolicyList %}
+                            <a href="{{ url_for('scheduling', policyId=policy.policyId) }}"><h6>{{ policy.name }}</h6></a><br>
+                        {% endfor %}
+                        <center><h5 id="test">Available DNS Policies</h5></center>
+                        {% for policy in dnsPolicyList %}
+                            <a href="{{ url_for('scheduling', policyId=policy.policyId) }}"><h6>{{ policy.name }}</h6></a><br>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="panel panel--bordered">
+                        <h5>Scheduling {{ selected }}</h5><br>
+                        <form method="post" name="schedule" id="schedule" onsubmit="return validateForm()">
+                            <div class="row">
+                                <div class="col-md-1 base-margin-bottom">
+                                    <label class="checkbox">
+                                    <input type="checkbox" checked="" id= "checkbox1" class="active">
+                                    <input type="hidden" id="policyId" value={{ policyId }}>
+                                    <span class="checkbox__input"></span>
+                                    </label>
+                                </div>
+                                <div class="col-md-2 base-margin-bottom">
+                                    <h6>Mondays</h6>
+                                </div>
+                                <input type="hidden" id="monday_count" value=0>
+                                    <div id = "container_monday">
+                                        <div class="col-md-2 base-margin-bottom time" id='monday_div0'>
+                                              <input type="time" id="appt" name="start_monday0">
+                                              <input type="time" id="appt" name="end_monday0">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2 base-margin-bottom" id = "add_monday">
+<!--                                        <div class="subheader">Add</div>-->
+                                        <button id="monday_add" class="btn" type="button">Add</button>
+                                    </div>
+                                    <div class="col-md-2 base-margin-bottom"id = "remove_monday">
+<!--                                        <div class="subheader">Remove</div>-->
+                                        <button id = "monday_remove" class="btn btn--dark" type="button">Remove</button>
+                                    </div>
+
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-1 base-margin-bottom">
+                                    <label class="checkbox">
+                                    <input type="checkbox" checked="" id= "checkbox2" class="active">
+                                    <span class="checkbox__input"></span>
+                                    </label>
+                                </div>
+                                <div class="col-md-2 base-margin-bottom">
+                                    <h6>Tuesdays</h6>
+                                </div>
+                                <input type="hidden" id="tuesday_count" value=0>
+                                <div id = "container_tuesday">
+                                    <div class="col-md-2 base-margin-bottom time" id='tuesday_div0'>
+                                        <input type="time" id="appt" name="start_tuesday0">
+                                        <input type="time" id="appt" name="end_tuesday0">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-2 base-margin-bottom" id="add_tuesday">
+<!--                                    <div class="subheader">Add</div>-->
+                                    <button id= "tuesday_add" class="btn" type="button">Add</button>
+                                </div>
+                                <div class="col-md-2 base-margin-bottom" id = "remove_tuesday">
+<!--                                    <div class="subheader">Remove</div>-->
+                                    <button id = "tuesday_remove" class="btn btn--dark" type="button">Remove</button>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-1 base-margin-bottom">
+                                    <label class="checkbox">
+                                    <input type="checkbox" checked="" id= "checkbox3" class="active">
+                                    <span class="checkbox__input"></span>
+                                    </label>
+                                </div>
+                                <div class="col-md-2 base-margin-bottom">
+                                    <h6>Wednesday</h6>
+                                </div>
+                                <input type="hidden" id="wednesday_count" value=0>
+                                <div id = "container_wednesday">
+                                    <div class="col-md-2 base-margin-bottom time" id='wednesday_div0'>
+                                        <input type="time"  name="start_wednesday0">
+                                        <input type="time"  name="end_wednesday0">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-2 base-margin-bottom" id="add_wednesday">
+<!--                                    <div class="subheader">Add</div>-->
+                                    <button id= "wednesday_add" class="btn" type="button">Add</button>
+                                </div>
+                                <div class="col-md-2 base-margin-bottom" id="remove_wednesday">
+<!--                                    <div class="subheader">Remove</div>-->
+                                    <button id = "wednesday_remove" class="btn btn--dark" type="button">Remove</button>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-1 base-margin-bottom">
+                                    <label class="checkbox">
+                                    <input type="checkbox" checked="" id= "checkbox4" class="active">
+                                    <span class="checkbox__input"></span>
+                                    </label>
+                                </div>
+                                <div class="col-md-2 base-margin-bottom">
+                                    <h6>Thursdays</h6>
+                                </div>
+                                <input type="hidden" id="thursday_count" value=0>
+                                <div id = "container_thursday">
+                                    <div class="col-md-2 base-margin-bottom time" id='thursday_div0'>
+                                        <input type="time" id="appt" name="start_thursday0">
+                                        <input type="time" id="appt" name="end_thursday0">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-2 base-margin-bottom" id="add_thursday">
+<!--                                    <div class="subheader">Add</div>-->
+                                    <button id= "thursday_add" class="btn" type="button">Add</button>
+                                </div>
+                                <div class="col-md-2 base-margin-bottom" id="remove_thursday">
+<!--                                    <div class="subheader">Remove</div>-->
+                                    <button id = "thursday_remove" class="btn btn--dark" type="button">Remove</button>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-1 base-margin-bottom">
+                                    <label class="checkbox">
+                                    <input type="checkbox" checked="" id= "checkbox5" class="active">
+                                    <span class="checkbox__input"></span>
+                                    </label>
+                                </div>
+                                <div class="col-md-2 base-margin-bottom">
+                                    <h6>Fridays</h6>
+                                </div>
+                                <input type="hidden" id="friday_count" value=0>
+                                <div id = "container_friday">
+                                    <div class="col-md-2 base-margin-bottom time" id='friday_div0'>
+                                        <input type="time" id="appt" name="start_friday0">
+                                        <input type="time" id="appt" name="end_friday0">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-2 base-margin-bottom" id="add_friday">
+<!--                                    <div class="subheader">Add</div>-->
+                                    <button id= "friday_add" class="btn" type="button">Add</button>
+                                </div>
+                                <div class="col-md-2 base-margin-bottom" id="remove_friday">
+<!--                                    <div class="subheader">Remove</div>-->
+                                    <button id = "friday_remove" class="btn btn--dark" type="button">Remove</button>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-1 base-margin-bottom">
+                                    <label class="checkbox">
+                                    <input type="checkbox" checked="" id= "checkbox6" class="active">
+                                    <span class="checkbox__input"></span>
+                                    </label>
+                                </div>
+                                <div class="col-md-2 base-margin-bottom">
+                                    <h6>Saturdays</h6>
+                                </div>
+                                <input type="hidden" id="saturday_count" value=0>
+                                <div id = "container_saturday">
+                                    <div class="col-md-2 base-margin-bottom time" id='saturday_div0'>
+                                        <input type="time" id="appt" name="start_saturday0">
+                                        <input type="time" id="appt" name="end_saturday0">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-2 base-margin-bottom" id="add_saturday">
+<!--                                    <div class="subheader">Add</div>-->
+                                    <button id= "saturday_add" class="btn" type="button">Add</button>
+                                </div>
+                                <div class="col-md-2 base-margin-bottom" id="remove_saturday">
+<!--                                    <div class="subheader">Remove</div>-->
+                                    <button id = "saturday_remove" class="btn btn--dark" type="button" >Remove</button>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-1 base-margin-bottom">
+                                    <label class="checkbox">
+                                    <input type="checkbox" checked="" id= "checkbox7" class="active">
+                                    <span class="checkbox__input"></span>
+                                    </label>
+                                </div>
+                                <div class="col-md-2 base-margin-bottom">
+                                    <h6>Sundays</h6>
+                                </div>
+                                <input type="hidden" id="sunday_count" value=0>
+                                <div id = "container_sunday">
+                                    <div class="col-md-2 base-margin-bottom time" id='sunday_div0'>
+                                        <input type="time" id="appt" name="start_sunday0">
+                                        <input type="time" id="appt" name="end_sunday0">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-2 base-margin-bottom" id="add_sunday">
+<!--                                    <div class="subheader">Add</div>-->
+                                    <button id= "sunday_add" class="btn" type="button">Add</button>
+                                </div>
+                                <div class="col-md-2 base-margin-bottom" id="remove_sunday">
+<!--                                    <div class="subheader">Remove</div>-->
+                                    <button id = "sunday_remove" class="btn btn--dark" type="button">Remove</button>
+                                </div>
+                            </div>
+
+                            <div class = "row">
+                                    <button type= "submit" class="btn btn--secondary">Submit</button>
+                            </div>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="panel panel--bordered">
+                        <table class="table table--lined table--selectable">
+                            <input type="hidden" id="target" value=0>
+                            <thead>
+                            <tr>
+                                <th>
+                                </th>
+                                <th class="text-center">Identity Targets</th>
+                            </tr>
+                            </thead>
+                            <tbody id="targetbody">
+                            {% for target in targetlist %}
+                                <tr>
+                                    <td>
+                                        <label class="checkbox">
+                                            <input type="checkbox" name="targets" value="{{ target.originId }}" id="{{ target.originId }}"/>
+                                            <span class="checkbox__input"></span>
+                                        </label>
+                                    </td>
+                                    <td class="text-center">
+                                        {{ target.name }}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+{% endblock %}
