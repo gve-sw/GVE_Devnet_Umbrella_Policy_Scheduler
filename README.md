@@ -24,7 +24,7 @@ or deactivated.
 
 #### Clone the repo
 ```console
-git clone https://github.com/gve-sw/GVE_Devnet_Umbrella_Policy_Scheduler.git
+git clone https://github.com/gve-sw/gve_devnet_umbrella_policy_scheduler.git
 ```
 
 ### Python
@@ -62,7 +62,7 @@ or to build the docker image from this repo. You may edit [docker-compose.yml](d
 # To build from scratch and generate an image
 build: .
 # To pull the image from GitHub docker
-image: docker.pkg.github.com/gve-sw/GVE_Devnet_Umbrella_Policy_Scheduler/umbrella_policy_scheduler:latest
+image: docker.pkg.github.com/gve-sw/gve_devnet_umbrella_policy_scheduler/umbrella_policy_scheduler:latest
 ```
 Pulling the image requires a personal access token from Github. Follow this [guide](https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token)
 to generate an access token with the ```read:packages``` scope.
