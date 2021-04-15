@@ -24,7 +24,7 @@ or deactivated.
 
 #### Clone the repo
 ```console
-git clone https://wwwin-github.cisco.com/gve/umbrella-policy-scheduler.git
+git clone https://github.com/gve-sw/GVE_Devnet_Umbrella_Policy_Scheduler.git
 ```
 
 ### Python
@@ -56,17 +56,20 @@ pip3 install -r requirements.txt
 ```
 
 ### Docker
-You have the option to use a docker image hosted on [containers.cisco.com](containers.cisco.com)
+You have the option to use a docker image hosted in this repo
 or to build the docker image from this repo. You may edit [docker-compose.yml](docker-compose.yml) to use one of the following options:
 ```yaml
 # To build from scratch and generate an image
 build: .
-# To pull the image from containers.cisco.com
-image: containers.cisco.com/jingenie/umbrella-policy-scheduler:latest
+# To pull the image from GitHub docker
+image: docker.pkg.github.com/gve-sw/GVE_Devnet_Umbrella_Policy_Scheduler/umbrella_policy_scheduler:latest
 ```
-Pulling the image requires you to log in to the container repository
+Pulling the image requires a personal access token from Github. Follow this [guide](https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token)
+to generate an access token with the ```read:packages``` scope.
+
+Afterwards, you would need to log in to docker with your Github username and personal access token.
 ```commandline
-docker login containers.cisco.com
+docker login https://docker.pkg.github.com -u USERNAME -p PERSONAL_ACCESS_TOKEN
 ```
 
 You can also edit the timezone used in scheduling in the same file:
@@ -130,6 +133,12 @@ Launch your web browser and navigate to [localhost:5000](localhost:5000) or with
 
 ### Activated Policy Sample
 ![alt text](img/activated.png)
+
+
+## Additional Resources
+For more resources on Umbrella API's and containers you may refer to the following learning labs:
+* [Umbrella](https://developer.cisco.com/learning/modules/umbrella-v11)
+* [Docker 101](https://developer.cisco.com/learning/modules/cloud-native-development/docker-101/step/1)
 
 
 ## License
