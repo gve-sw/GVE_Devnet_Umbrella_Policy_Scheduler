@@ -135,7 +135,7 @@ Launch your web browser and navigate to [localhost:5000](localhost:5000) or with
 ![alt text](img/activated.png)
 
 
-## Additional Resources
+## Links to DevNet Learning Labs
 For more resources on Umbrella API's and containers you may refer to the following learning labs:
 * [Umbrella](https://developer.cisco.com/learning/modules/umbrella-v11)
 * [Docker 101](https://developer.cisco.com/learning/modules/cloud-native-development/docker-101/step/1)
